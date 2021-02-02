@@ -1,16 +1,21 @@
-# my_app
+# Flutter sample app for ScaleMonk SDK
 
-A new Flutter project.
+This is an -almost- empty Flutter application which minimalisticaly integrates the ScaleMonk SDK allowing to (a) initailise it and (b) show interstitials. 
 
-## Getting Started
+This application follows:
+ - [Flutter guide for iOS development](https://flutter.dev/docs/get-started/flutter-for/ios-devs)
+ - [ScaleMonk integration guide for iOS](https://scalemonk.github.io/mediation-docs/#/mediation-sdk-ios/getting-started)
 
-This project is a starting point for a Flutter application.
+## Requirements
+This application is known to run correctly on:
+ - SMAds `0.1.1-alpha.4` 
+ - Flutter `1.22.6`
+ - Xcode `12.4`
+ - Cocoapods `1.10.1`
 
-A few resources to get you started if this is your first Flutter project:
+## Important
+- You have to correctly setup your credentials (applicationId) and setup the test mode on https://mediation.scalemonk.com
+- Simulator might fail to correctly display ads (audio or video issues), if you encounter issues displaying ads on it try to use a real device.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Building
+- After cloning the repository run `pod install --project-directory=ios` on the root folder of the project
