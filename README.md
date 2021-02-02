@@ -17,5 +17,7 @@ This application is known to run correctly on:
 - You have to correctly setup your credentials (applicationId) and setup the test mode on https://mediation.scalemonk.com
 - Simulator might fail to correctly display ads (audio or video issues), if you encounter issues displaying ads on it try to use a real device.
 
-## Building
+## iOS: Building & running
 - After cloning the repository run `pod install --project-directory=ios` on the root folder of the project
+- You have to follow normal practices for code signing for the project to run on an iOS device
+- To run the project you can also use `flutter run`
