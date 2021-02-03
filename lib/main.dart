@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+/*
+ * @SMAds: This is a demo application you can find on 
+ * https://flutter.dev/docs/get-started/install which has been modified
+ * to show ads when requested. The original functionality of the application
+ * was to 'increment a counter' so you'll see some code that has to do with 
+ * that.
+ */
+
 void main() {
   runApp(MyApp());
 }
@@ -10,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SMAds Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -27,7 +36,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'SMAds Flutter Demo'),
     );
   }
 }
@@ -53,27 +62,72 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  static const platform = const MethodChannel('samples.flutter.dev/battery');
+  static const platform = const MethodChannel('scalemonk.com/ads');
 
-  // Get battery level.
-  String _batteryLevel = 'Unknown battery level.';
+  String _adsInitializationResult = 'SMAds not initialized yet';
+  String _wasRewarded = 'This is where rewarded and interstitial callback results are shown';
+
+  @override
+  void initState() {
+    super.initState();
+    platform.setMethodCallHandler(callbacksHandler);
+  }
 
   Future<void> _initializeSMAds() async {
-    String batteryLevel;
+    String initializationResult;
     try {
-      final int result = await platform.invokeMethod('initializeSMAds');
-      batteryLevel = 'Result = $result % .';
+      final String result = await platform.invokeMethod('initializeSMAds');
+      initializationResult = "ScaleMonk initialization result is: $result";
     } on PlatformException catch (e) {
-      batteryLevel = "Exception!!! '${e.message}'.";
+      initializationResult = "Error initializing ScaleMonk. Message: '${e.message}'.";
     }
 
     setState(() {
-      _batteryLevel = batteryLevel;
+      _adsInitializationResult = initializationResult;
     });
+  }
+
+  /*
+   * @SMAds: this is relevant, here you will receive the callbacks from SMAds
+   * These callbacks are called on the Swift side (AppDelegate.swift), on the Rewarded Video Callbacks MARK
+   */
+  Future<dynamic> callbacksHandler(MethodCall methodCall) async {
+    String newText = _wasRewarded;
+    switch (methodCall.method) {
+      case 'onRewardedFinish':       
+        newText = "Video completed, reward given";
+        break;
+       case 'onRewardedFail':
+        newText = "Video not shown";
+        break;
+        case 'onRewardedFinishNoReward':
+        newText = "Video not completed, reward not given";
+        break;
+        case 'onInterstitialView':
+          newText = "Interstitial shown correctly";
+        break;
+          case 'onInterstitialClick':
+          newText = "Interstitial clicked";
+        break;
+        case 'onInterstitialFail':
+          newText = "Interstitial not shown";
+        break;
+        case 'onRewardedClick':
+          newText = "Rewarded video clicked";
+        break;
+      default:
+    }
+    setState(() {
+        _wasRewarded = newText;
+      });
   }
 
   Future<void> _showInterstitial() async {
     await platform.invokeMethod('showInterstitial');
+  }
+
+  Future<void> _showRewarded() async {
+    await platform.invokeMethod('showRewarded');
   }
 
   void _incrementCounter() {
@@ -121,22 +175,20 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
             ElevatedButton(
               child: Text('Initialize SM Ads'),
               onPressed: _initializeSMAds,
             ),
-            Text(_batteryLevel),
+            Text(_adsInitializationResult),
             ElevatedButton(
               child: Text('Show interstitial'),
               onPressed: _showInterstitial,
             ),
+            ElevatedButton(
+              child: Text('Show Rewarded'),
+              onPressed: _showRewarded,
+            ),
+            Text(_wasRewarded),
           ],
         ),
       ),
