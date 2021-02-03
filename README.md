@@ -10,7 +10,7 @@ At this time SMAds is only supported on iOS (and Unity-iOS). While Android versi
 
 ## Requirements
 This application is known to run correctly on:
- - SMAds `0.1.1-alpha.4` 
+ - SMAds `0.1.2` 
  - Flutter `1.22.6`
  - Xcode `12.4`
  - Cocoapods `1.10.1`
