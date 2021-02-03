@@ -1,10 +1,12 @@
 # Flutter sample app for ScaleMonk SDK
-
 This is an -almost- empty Flutter application which minimalisticaly integrates the ScaleMonk SDK allowing to (a) initailise it and (b) show interstitials. 
 
 This application follows:
  - [Flutter guide for iOS development](https://flutter.dev/docs/get-started/flutter-for/ios-devs)
  - [ScaleMonk integration guide for iOS](https://scalemonk.github.io/mediation-docs/#/mediation-sdk-ios/getting-started)
+
+## Is this iOS and Android compatible?
+At this time SMAds is only supported on iOS (and Unity-iOS). While Android version is coming soon, at this time this sample app only shows the iOS integration.
 
 ## Requirements
 This application is known to run correctly on:
