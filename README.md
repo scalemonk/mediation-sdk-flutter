@@ -23,3 +23,7 @@ This application is known to run correctly on:
 - After cloning the repository run `pod install --project-directory=ios` on the root folder of the project
 - You have to follow normal practices for code signing for the project to run on an iOS device
 - To run the project you can also use `flutter run`
+
+## Troubleshooting
+
+Please consult the [troubleshooting](https://scalemonk.github.io/mediation-docs/#/mediation-sdk-ios/troubleshooting) guide of the documentation
