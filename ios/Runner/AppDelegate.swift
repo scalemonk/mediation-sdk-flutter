@@ -28,6 +28,8 @@ import ScaleMonkAds
                 self?.initializeSMAds(result: result)
             case "showInterstitial":
                 self?.showInterstitial(controller: controller)
+            case "showBanner":
+                self?.showBanner(controller: controller)
             case "showRewarded":
                 self?.showRewarded(controller: controller)
             default:
@@ -46,7 +48,23 @@ import ScaleMonkAds
         * viewController: A `UIViewController` that is currently in the view hierarchy,
         * tag: An optional string value to know in which screen the ad was shown in. (For example: `Main-Menu`)
         */
-        scaleMonkAds!.showInterstitialAd(with: controller, andTag: "Main-Menu")
+        scaleMonkAds!.showInterstitialAd(viewController: controller, tag: "Main-Menu")
+    }
+
+    private func showBanner(controller: UIViewController) {
+        /*
+        * viewController: A `UIViewController` that is currently in the view hierarchy,
+        * tag: An optional string value to know in which screen the ad was shown in. (For example: `Main-Menu`)
+        */
+        let bannerView = SMBannerView()
+        // Here place your banner view where it should be positioned.
+        // For the banner's size (width and height) use the size that
+        // fits your needs best and we will try to fill it with the
+        // biggest banner posible.
+        bannerView.frame = CGRect(x: 0, y: 150, width: 320, height: 50)
+        bannerView.viewController = controller
+        controller.view.addSubview(bannerView)
+        scaleMonkAds!.showBannerAd(viewController: controller, bannerView: bannerView, tag: "Main-Menu")
     }
     
     private func showRewarded(controller: UIViewController) {
@@ -54,7 +72,7 @@ import ScaleMonkAds
         * viewController: A `UIViewController` that is currently in the view hierarchy,
         * tag: An optional string value to know in which screen the ad was shown in. (For example: `Main-Menu`)
         */
-        scaleMonkAds!.showRewardedVideoAd(with: controller, andTag: "Main-Menu")
+        scaleMonkAds!.showRewardedVideoAd(viewController: controller, tag: "Main-Menu")
     }
 
     

@@ -10,7 +10,7 @@ target 'Runner' do
   use_frameworks!
 
   # Pods for Runner
-  pod 'ScaleMonkAds','0.1.1-alpha.4'
+  pod 'ScaleMonkAds','0.3.0'
 end
 
 post_install do |installer|

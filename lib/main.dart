@@ -126,6 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
     await platform.invokeMethod('showInterstitial');
   }
 
+  Future<void> _showBanner() async {
+    await platform.invokeMethod('showBanner');
+  }
+
   Future<void> _showRewarded() async {
     await platform.invokeMethod('showRewarded');
   }
@@ -181,8 +185,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(_adsInitializationResult),
             ElevatedButton(
-              child: Text('Show interstitial'),
+              child: Text('Show Interstitial'),
               onPressed: _showInterstitial,
+            ),
+            ElevatedButton(
+              child: Text('Show Banner'),
+              onPressed: _showBanner,
             ),
             ElevatedButton(
               child: Text('Show Rewarded'),
